@@ -1,5 +1,7 @@
 import React from "react";
+import { useDispatch } from "react-redux";
 import { useForm } from "react-hook-form";
+import { createTask } from "../taskSlice";
 import styles from "./TaskForm.module.scss";
 import TextField from "@material-ui/core/TextField";
 
@@ -8,9 +10,10 @@ type Inputs = {
 };
 
 const TaskForm: React.FC = () => {
+  const dispatch = useDispatch();
   const { register, handleSubmit, reset } = useForm();
   const handleCreate = (data: Inputs) => {
-    console.log(data);
+    dispatch(createTask(data.taskTitle));
     reset();
   };
   return (
