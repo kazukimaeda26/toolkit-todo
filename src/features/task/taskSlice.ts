@@ -13,9 +13,11 @@ export interface TaskState {
   isModalOpen: boolean;
 }
 
-const initialState: CounterState = {
-  value: 0,
-  status: "idle",
+const initialState: TaskState = {
+  idCount: 0,
+  tasks: [{ id: 1, title: "Task A", completed: false }],
+  selectedTask: { id: 0, title: "", completed: false },
+  isModalOpen: false,
 };
 
 // The function below is called a thunk and allows us to perform async logic. It
