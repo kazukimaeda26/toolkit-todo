@@ -1,7 +1,7 @@
 import React from "react";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { useForm } from "react-hook-form";
-import { createTask, handleModalOpen } from "../taskSlice";
+import { createTask, handleModalOpen, selectSelectedTask } from "../taskSlice";
 import styles from "./TaskForm.module.scss";
 import TextField from "@material-ui/core/TextField";
 
@@ -15,6 +15,7 @@ type PropTypes = {
 
 const TaskForm: React.FC<PropTypes> = ({ edit }) => {
   const dispatch = useDispatch();
+  const selectedTask = useSelector(selectSelectedTask);
   const { register, handleSubmit, reset } = useForm();
   const handleCreate = (data: Inputs) => {
     dispatch(createTask(data.taskTitle));
@@ -32,7 +33,7 @@ const TaskForm: React.FC<PropTypes> = ({ edit }) => {
         <TextField
           id="outlined-basic"
           label={edit ? "Edit Task" : "New Task"}
-          defaultValue={edit ? "defalultValue" : ""}
+          defaultValue={edit ? selectedTask.title : ""}
           variant="outlined"
           inputRef={register}
           name="taskTitle"
