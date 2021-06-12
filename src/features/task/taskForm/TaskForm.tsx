@@ -1,7 +1,12 @@
 import React from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useForm } from "react-hook-form";
-import { createTask, handleModalOpen, selectSelectedTask } from "../taskSlice";
+import {
+  createTask,
+  editTask,
+  handleModalOpen,
+  selectSelectedTask,
+} from "../taskSlice";
 import styles from "./TaskForm.module.scss";
 import TextField from "@material-ui/core/TextField";
 
@@ -22,7 +27,9 @@ const TaskForm: React.FC<PropTypes> = ({ edit }) => {
     reset();
   };
   const handleEdit = (data: Inputs) => {
-    console.log(data);
+    const sendData = { ...selectedTask, title: data.taskTitle };
+    dispatch(editTask(sendData));
+    dispatch(handleModalOpen(false));
   };
   return (
     <div className={styles.root}>
