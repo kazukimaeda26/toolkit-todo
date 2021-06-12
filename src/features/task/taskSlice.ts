@@ -14,7 +14,7 @@ export interface TaskState {
 
 const initialState: TaskState = {
   idCount: 0,
-  tasks: [{ id: 1, title: "Task A", completed: false }],
+  tasks: [{ id: 0, title: "Task A", completed: false }],
   selectedTask: { id: 0, title: "", completed: false },
   isModalOpen: false,
 };
