@@ -9,9 +9,11 @@ import {
   selectTask,
   handleModalOpen,
   selectIsModalOpen,
-  completeTask,
   deleteTask,
+  editTask,
+  fetchTasks,
 } from "../taskSlice";
+import { AppDispatch } from "../../../app/store";
 import TaskForm from "../taskForm/TaskForm";
 import styles from "./TaskItem.module.scss";
 import { EventNote } from "@material-ui/icons";
@@ -23,7 +25,7 @@ interface PropTyeps {
 const TaskItem: React.FC<PropTyeps> = ({ task }) => {
   const isModalOpen = useSelector(selectIsModalOpen);
 
-  const dispatch = useDispatch();
+  const dispatch: AppDispatch = useDispatch();
   const handleOpen = () => {
     dispatch(selectTask(task));
     dispatch(handleModalOpen(true));
@@ -31,6 +33,12 @@ const TaskItem: React.FC<PropTyeps> = ({ task }) => {
 
   const handleClose = () => {
     dispatch(handleModalOpen(false));
+  };
+
+  const handleEdit = async (id: string, title: string, completed: boolean) => {
+    const sendData = { id, title, completed: !completed };
+    await editTask(sendData);
+    dispatch(fetchTasks());
   };
 
   return (
@@ -42,7 +50,7 @@ const TaskItem: React.FC<PropTyeps> = ({ task }) => {
       <div className={styles.right_item}>
         <Checkbox
           checked={task.completed}
-          onClick={() => dispatch(completeTask(task))}
+          onClick={() => handleEdit(task.id, task.title, task.completed)}
           className={styles.checkbox}
         />
         <button onClick={handleOpen} className={styles.edit_button}>
