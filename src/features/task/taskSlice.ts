@@ -42,25 +42,25 @@ export const taskSlice = createSlice({
   reducers: {
     // taskの作成
     createTask: (state, action) => {
-      state.idCount++;
-      const newTask = {
-        id: state.idCount,
-        title: action.payload,
-        completed: false,
-      };
-      state.tasks = [newTask, ...state.tasks];
+      // state.idCount++;
+      // const newTask = {
+      //   id: state.idCount,
+      //   title: action.payload,
+      //   completed: false,
+      // };
+      // state.tasks = [newTask, ...state.tasks];
     },
     // taskの編集
     editTask: (state, action) => {
-      const task = state.tasks.find((t) => t.id === action.payload.id);
-      if (task) {
-        task.title = action.payload.title;
-      }
+      // const task = state.tasks.find((t) => t.id === action.payload.id);
+      // if (task) {
+      //   task.title = action.payload.title;
+      // }
     },
     // taskの削除
     deleteTask: (state, action) => {
       // 指定したtask以外で新しくstate.tasksの配列を作成し直している。
-      state.tasks = state.tasks.filter((t) => t.id !== action.payload.id);
+      // state.tasks = state.tasks.filter((t) => t.id !== action.payload.id);
     },
     //どのタスクを選択しているか管理
     selectTask: (state, action) => {
@@ -72,11 +72,11 @@ export const taskSlice = createSlice({
     },
     // task完了未完了のチェックを変更
     completeTask: (state, action) => {
-      const task = state.tasks.find((t) => t.id === action.payload.id);
-      if (task) {
-        // 抜き出したtaskの中身を反転
-        task.completed = !task.completed;
-      }
+      // const task = state.tasks.find((t) => t.id === action.payload.id);
+      // if (task) {
+      //   // 抜き出したtaskの中身を反転
+      //   task.completed = !task.completed;
+      // }
     },
   },
   // create async thunkの処理が完了したあとにはしる
