@@ -44,7 +44,7 @@ export const createTask = async (title: string): Promise<void> => {
     // fireStoreのtaskコレクションにデータを追加　idは自動で振られる
     await db
       .collection("tasks")
-      .add({ title: titiel, completed: false, dateTime: dateTime });
+      .add({ title: title, completed: false, dateTime: dateTime });
   } catch (err) {
     console.log("Error writing document:", err);
   }
