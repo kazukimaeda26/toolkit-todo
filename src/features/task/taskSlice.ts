@@ -2,6 +2,7 @@ import { createAsyncThunk, createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { RootState, AppThunk } from "../../app/store";
 import { db } from "../../firebase";
 import firebase from "firebase/app";
+import { Provider } from "react";
 
 export interface TaskState {
   // taskが何個あるのかを管理するもの
@@ -50,6 +51,23 @@ export const createTask = async (title: string): Promise<void> => {
   }
 };
 
+// taskの編集
+export const editTask = async (submitData: {
+  id: string;
+  title: string;
+  completed: boolean;
+}): Promise<void> => {
+  const { id, title, completed } = submitData;
+  const dateTime = firebase.firestore.Timestamp.fromDate(new Date());
+  try {
+    await db
+      .collection("tasks")
+      .doc({ title, completed, dateTime }, { merge: true });
+  } catch (err) {
+    console.log("Error updating document:", err);
+  }
+};
+
 export const taskSlice = createSlice({
   name: "task",
   initialState,
@@ -66,12 +84,12 @@ export const taskSlice = createSlice({
     // state.tasks = [newTask, ...state.tasks];
     // },
     // taskの編集
-    editTask: (state, action) => {
-      // const task = state.tasks.find((t) => t.id === action.payload.id);
-      // if (task) {
-      //   task.title = action.payload.title;
-      // }
-    },
+    // editTask: (state, action) => {
+    // const task = state.tasks.find((t) => t.id === action.payload.id);
+    // if (task) {
+    //   task.title = action.payload.title;
+    // }
+    // },
     // taskの削除
     deleteTask: (state, action) => {
       // 指定したtask以外で新しくstate.tasksの配列を作成し直している。
@@ -86,13 +104,13 @@ export const taskSlice = createSlice({
       state.isModalOpen = action.payload;
     },
     // task完了未完了のチェックを変更
-    completeTask: (state, action) => {
-      // const task = state.tasks.find((t) => t.id === action.payload.id);
-      // if (task) {
-      //   // 抜き出したtaskの中身を反転
-      //   task.completed = !task.completed;
-      // }
-    },
+    // completeTask: (state, action) => {
+    // const task = state.tasks.find((t) => t.id === action.payload.id);
+    // if (task) {
+    //   // 抜き出したtaskの中身を反転
+    //   task.completed = !task.completed;
+    // }
+    // },
   },
   // create async thunkの処理が完了したあとにはしる
   extraReducers: (builder) => {
@@ -107,10 +125,10 @@ export const taskSlice = createSlice({
 
 export const {
   // createTask,
-  editTask,
+  // editTask,
   handleModalOpen,
   selectTask,
-  completeTask,
+  // completeTask,
   deleteTask,
 } = taskSlice.actions;
 
