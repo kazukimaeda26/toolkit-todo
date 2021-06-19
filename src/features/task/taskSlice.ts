@@ -1,5 +1,6 @@
 import { createAsyncThunk, createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { RootState, AppThunk } from "../../app/store";
+import { db } from "../../firebase";
 
 export interface TaskState {
   // taskが何個あるのかを管理するもの
@@ -18,6 +19,21 @@ const initialState: TaskState = {
   selectedTask: { id: "", title: "", completed: false },
   isModalOpen: false,
 };
+
+// taskの全件取得
+export const fetchTasks = createAsyncThunk("task/getAllTasks", async () => {
+  const res = await db.collection("tasks").orderBy("dateTime", "desc").get();
+
+  const allTasks = res.docs.map((doc) => ({
+    id: doc.id,
+    title: doc.data().title,
+    completed: doc.data().completed,
+  }));
+
+  const taskNumber = allTasks.length;
+  const passData = { allTasks, taskNumber };
+  return passData;
+});
 
 export const taskSlice = createSlice({
   name: "task",
