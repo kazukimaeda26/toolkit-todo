@@ -1,6 +1,7 @@
 import { createAsyncThunk, createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { RootState, AppThunk } from "../../app/store";
 import { db } from "../../firebase";
+import firebase from "firebase/app";
 
 export interface TaskState {
   // taskが何個あるのかを管理するもの
@@ -35,21 +36,35 @@ export const fetchTasks = createAsyncThunk("task/getAllTasks", async () => {
   return passData;
 });
 
+// taskの新規作成
+export const createTask = async (title: string): Promise<void> => {
+  try {
+    const dateTime = firebase.firestore.Timestamp.fromDate(new Date());
+
+    // fireStoreのtaskコレクションにデータを追加　idは自動で振られる
+    await db
+      .collection("tasks")
+      .add({ title: titiel, completed: false, dateTime: dateTime });
+  } catch (err) {
+    console.log("Error writing document:", err);
+  }
+};
+
 export const taskSlice = createSlice({
   name: "task",
   initialState,
   // The `reducers` field lets us define reducers and generate associated actions
   reducers: {
     // taskの作成
-    createTask: (state, action) => {
-      // state.idCount++;
-      // const newTask = {
-      //   id: state.idCount,
-      //   title: action.payload,
-      //   completed: false,
-      // };
-      // state.tasks = [newTask, ...state.tasks];
-    },
+    // createTask: (state, action) => {
+    // state.idCount++;
+    // const newTask = {
+    //   id: state.idCount,
+    //   title: action.payload,
+    //   completed: false,
+    // };
+    // state.tasks = [newTask, ...state.tasks];
+    // },
     // taskの編集
     editTask: (state, action) => {
       // const task = state.tasks.find((t) => t.id === action.payload.id);
@@ -91,7 +106,7 @@ export const taskSlice = createSlice({
 });
 
 export const {
-  createTask,
+  // createTask,
   editTask,
   handleModalOpen,
   selectTask,
