@@ -17,7 +17,7 @@ import styles from "./TaskItem.module.scss";
 import { EventNote } from "@material-ui/icons";
 
 interface PropTyeps {
-  task: { id: number; title: string; completed: boolean };
+  task: { id: string; title: string; completed: boolean };
 }
 
 const TaskItem: React.FC<PropTyeps> = ({ task }) => {
