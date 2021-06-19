@@ -79,6 +79,15 @@ export const taskSlice = createSlice({
       }
     },
   },
+  // create async thunkの処理が完了したあとにはしる
+  extraReducers: (builder) => {
+    // stateとactionの型が正しく推論されるためにbuilder関数を用いる。
+    builder.addCase(fetchTasks.fulfilled, (state, action) => {
+      // action.payloadが return passDataだと思え。
+      state.tasks = action.payload.allTasks;
+      state.idCount = action.payload.taskNumber;
+    });
+  },
 });
 
 export const {
