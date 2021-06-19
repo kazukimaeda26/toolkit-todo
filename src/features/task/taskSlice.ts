@@ -5,17 +5,17 @@ export interface TaskState {
   // taskが何個あるのかを管理するもの
   idCount: number;
   // 配列の中に以下のハッシュが入っているという形を作る
-  tasks: { id: number; title: string; completed: boolean }[];
+  tasks: { id: string; title: string; completed: boolean }[];
   // taskのタイトルを編集する際にどのtaskが選択されているか
-  selectedTask: { id: number; title: string; completed: boolean };
+  selectedTask: { id: string; title: string; completed: boolean };
   // modalを開くか開かないかの管理を行う
   isModalOpen: boolean;
 }
 
 const initialState: TaskState = {
   idCount: 0,
-  tasks: [{ id: 0, title: "Task A", completed: false }],
-  selectedTask: { id: 0, title: "", completed: false },
+  tasks: [],
+  selectedTask: { id: "", title: "", completed: false },
   isModalOpen: false,
 };
 
