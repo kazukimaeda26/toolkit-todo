@@ -62,7 +62,8 @@ export const editTask = async (submitData: {
   try {
     await db
       .collection("tasks")
-      .doc({ title, completed, dateTime }, { merge: true });
+      .doc(id)
+      .set({ title, completed, dateTime }, { merge: true });
   } catch (err) {
     console.log("Error updating document:", err);
   }
