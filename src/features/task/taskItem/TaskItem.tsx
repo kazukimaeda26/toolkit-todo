@@ -41,6 +41,11 @@ const TaskItem: React.FC<PropTyeps> = ({ task }) => {
     dispatch(fetchTasks());
   };
 
+  const handleDelete = async (id: string) => {
+    await deleteTask(id);
+    dispatch(fetchTasks());
+  };
+
   return (
     <div className={styles.root}>
       <div className={styles.tytle}>
@@ -57,7 +62,7 @@ const TaskItem: React.FC<PropTyeps> = ({ task }) => {
           <EditIcon className={styles.icon} />
         </button>
         <button
-          onClick={() => dispatch(deleteTask(task))}
+          onClick={() => handleDelete(task.id)}
           className={styles.delete_button}
         >
           <DeleteIcon className={styles.icon} />
