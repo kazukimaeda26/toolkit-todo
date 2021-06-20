@@ -69,6 +69,15 @@ export const editTask = async (submitData: {
   }
 };
 
+// taskの削除
+export const deleteTask = async (id: string): Promise<void> => {
+  try {
+    await db.collection("tasks").doc(id).delete();
+  } catch (err) {
+    console.log("Error removing document", err);
+  }
+};
+
 export const taskSlice = createSlice({
   name: "task",
   initialState,
@@ -92,10 +101,10 @@ export const taskSlice = createSlice({
     // }
     // },
     // taskの削除
-    deleteTask: (state, action) => {
-      // 指定したtask以外で新しくstate.tasksの配列を作成し直している。
-      // state.tasks = state.tasks.filter((t) => t.id !== action.payload.id);
-    },
+    // deleteTask: (state, action) => {
+    // 指定したtask以外で新しくstate.tasksの配列を作成し直している。
+    // state.tasks = state.tasks.filter((t) => t.id !== action.payload.id);
+    // },
     //どのタスクを選択しているか管理
     selectTask: (state, action) => {
       state.selectedTask = action.payload;
@@ -130,7 +139,7 @@ export const {
   handleModalOpen,
   selectTask,
   // completeTask,
-  deleteTask,
+  // deleteTask,
 } = taskSlice.actions;
 
 export const selectTasks = (state: RootState): TaskState["tasks"] =>
