@@ -16,7 +16,6 @@ ReactDOM.render(
           <Route exact path="/user-auth" component={UserAuth} />
         </Switch>
       </BrowserRouter>
-      <App />
     </Provider>
   </React.StrictMode>,
   document.getElementById("root")
