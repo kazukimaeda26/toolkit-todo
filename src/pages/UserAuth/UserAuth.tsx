@@ -65,7 +65,7 @@ const UserAuth: React.FC = () => {
           <LockOutlinedIcon />
         </Avatar>
         <Typography component="h1" variant="h5">
-          Sign up
+          {isSignIn ? "ログイン" : "新規登録"}
         </Typography>
         <form className={classes.form} noValidate>
           <Grid container spacing={2}>
@@ -124,7 +124,7 @@ const UserAuth: React.FC = () => {
             color="primary"
             className={classes.submit}
           >
-            Sign Up
+            {isSignIn ? "ログインする" : "新規登録する"}
           </Button>
           <Grid container justify="flex-end">
             <Grid item>
