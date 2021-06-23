@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { useForm } from "react-hook-form";
 import Avatar from "@material-ui/core/Avatar";
 import Button from "@material-ui/core/Button";
@@ -53,6 +53,9 @@ interface AuthDataTypes {
 const UserAuth: React.FC = () => {
   const classes = useStyles();
   const { register, handleSubmit, errors } = useForm<AuthDataTypes>();
+
+  // サインイン画面かサインアップ画面下の切り替えをuseStateで管理する
+  const [isSignIn, setIsSignIn] = useState(true);
 
   return (
     <Container component="main" maxWidth="xs">
