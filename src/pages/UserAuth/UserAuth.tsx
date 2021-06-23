@@ -50,12 +50,22 @@ interface AuthDataTypes {
   password: string;
 }
 
-const UserAuth: React.FC = () => {
+const UserAuth: React.FC = (props: any) => {
   const classes = useStyles();
   const { register, handleSubmit, errors } = useForm<AuthDataTypes>();
 
   // サインイン画面かサインアップ画面下の切り替えをuseStateで管理する
   const [isSignIn, setIsSignIn] = useState(true);
+
+  // ログイン処理
+  const handleSignIn = async(data: AuthDataTypes) => {
+    const (email, password) = data;
+    try{await auth.signInWiehEmailAndPassword(email, password);
+    props.history.push('/')}
+    catch(err){
+      alert(err.message)
+    }
+  }
 
   return (
     <Container component="main" maxWidth="xs">
