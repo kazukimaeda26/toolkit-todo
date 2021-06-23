@@ -1,4 +1,5 @@
 import React from "react";
+import { useForm } from "react-hook-form";
 import Avatar from "@material-ui/core/Avatar";
 import Button from "@material-ui/core/Button";
 import CssBaseline from "@material-ui/core/CssBaseline";
@@ -44,8 +45,14 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
+interface AuthDataTypes {
+  email: string;
+  password: string;
+}
+
 const UserAuth: React.FC = () => {
   const classes = useStyles();
+  const { register, handleSubmit, errors } = useForm<AuthDataTypes>();
 
   return (
     <Container component="main" maxWidth="xs">
@@ -68,6 +75,20 @@ const UserAuth: React.FC = () => {
                 label="Email Address"
                 name="email"
                 autoComplete="email"
+                autoFocus
+                error={Boolean(errors.email)}
+                helperText={errors.email && errors.email.message}
+                inputRef={register({
+                  required: {
+                    value: true,
+                    message: "メールアドレスを入力してください。",
+                  },
+                  pattern: {
+                    value:
+                      /^[A-Za-z0-9]{1}[A-Za-z0-9_.-]*@{1}[A-Za-z0-9_.-]{1,}\.[A-Za-z0-9]{1,}$/,
+                    message: "メールアドレスを正しい形式で入力してください。",
+                  },
+                })}
               />
             </Grid>
             <Grid item xs={12}>
@@ -80,6 +101,16 @@ const UserAuth: React.FC = () => {
                 type="password"
                 id="password"
                 autoComplete="current-password"
+                inputRef={register({
+                  required: {
+                    value: true,
+                    message: "パスワードを入力してください。",
+                  },
+                  minLength: {
+                    value: 6,
+                    message: "パスワードを6文字以上で入力してください。",
+                  },
+                })}
               />
             </Grid>
           </Grid>
