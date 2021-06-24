@@ -8,10 +8,16 @@ import TaskForm from "./features/task/taskForm/TaskForm";
 import TaskList from "./features/task/taskList/TaskList";
 import { fetchTasks } from "./features/task/taskSlice";
 import { AppDispatch } from "./app/store";
+import { auth } from "./firebase";
 
 const App: React.FC<RouteComponentProps> = (props) => {
   const dispatch: AppDispatch = useDispatch();
 
+  useEffect(() => {
+    auth.onAuthStateChanged((user) => {
+      !user && props.history.push("user-auth");
+    });
+  }, []);
   // 空の配列を渡すのはレンダリングされた場合のみに発火させたいため。
   useEffect(() => {
     const getData = () => {
