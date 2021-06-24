@@ -1,5 +1,6 @@
 import React, { useEffect } from "react";
 import { useDispatch } from "react-redux";
+import { RouteComponentProps } from "react-router-dom";
 import Header from "./components/header/Header";
 import styles from "./App.module.scss";
 import TaskForm from "./features/task/taskForm/TaskForm";
@@ -8,8 +9,8 @@ import { fetchTasks } from "./features/task/taskSlice";
 import { AppDispatch } from "./app/store";
 import { auth } from "./firebase";
 
-const App: React.FC = () => {
   console.log(auth);
+const App: React.FC<RouteComponentProps> = (props) => {
   const dispatch: AppDispatch = useDispatch();
 
   // 空の配列を渡すのはレンダリングされた場合のみに発火させたいため。
@@ -22,7 +23,7 @@ const App: React.FC = () => {
   return (
     <div className={styles.root}>
       <div className={styles.wrapper}>
-        <Header />
+        <Header history={props.history} />
         <TaskForm />
         <TaskList />
       </div>
