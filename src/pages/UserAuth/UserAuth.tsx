@@ -58,15 +58,26 @@ const UserAuth: React.FC = (props: any) => {
   const [isSignIn, setIsSignIn] = useState(true);
 
   // ログイン処理
-  const handleSignIn = async(data: AuthDataTypes) => {
-    const (email, password) = data;
-    try{await auth.signInWiehEmailAndPassword(email, password);
-    props.history.push('/')}
-    catch(err){
-      alert(err.message)
+  const handleSignIn = async (data: AuthDataTypes) => {
+    const { email, password } = data;
+    try {
+      await auth.signInWithEmailAndPassword(email, password);
+      props.history.push("/");
+    } catch (err) {
+      alert(err.message);
     }
-  }
+  };
 
+  //新規登録処理
+  const handleSignUp = async (data: AuthDataTypes) => {
+    const { email, password } = data;
+    try {
+      await auth.createUserWithEmailAndPassword(email, password);
+      props.history.push("/");
+    } catch (err) {
+      alert(err.message);
+    }
+  };
   return (
     <Container component="main" maxWidth="xs">
       <CssBaseline />
