@@ -7,9 +7,7 @@ import TaskForm from "./features/task/taskForm/TaskForm";
 import TaskList from "./features/task/taskList/TaskList";
 import { fetchTasks } from "./features/task/taskSlice";
 import { AppDispatch } from "./app/store";
-import { auth } from "./firebase";
 
-  console.log(auth);
 const App: React.FC<RouteComponentProps> = (props) => {
   const dispatch: AppDispatch = useDispatch();
 
