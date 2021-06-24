@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { useForm } from "react-hook-form";
 import { RouteComponentProps } from "react-router-dom";
 import Avatar from "@material-ui/core/Avatar";
@@ -80,6 +80,13 @@ const UserAuth: React.FC<RouteComponentProps> = (props) => {
       alert(err.message);
     }
   };
+
+  useEffect(() => {
+    auth.onAuthStateChanged((user) => {
+      user && props.history.push("/");
+    });
+  }, []);
+
   return (
     <Container component="main" maxWidth="xs">
       <CssBaseline />
