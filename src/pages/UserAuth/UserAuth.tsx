@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { useForm } from "react-hook-form";
+import { RouteComponentProps } from "react-router-dom";
 import Avatar from "@material-ui/core/Avatar";
 import Button from "@material-ui/core/Button";
 import CssBaseline from "@material-ui/core/CssBaseline";
@@ -11,6 +12,7 @@ import LockOutlinedIcon from "@material-ui/icons/LockOutlined";
 import Typography from "@material-ui/core/Typography";
 import { makeStyles } from "@material-ui/core/styles";
 import Container from "@material-ui/core/Container";
+import { auth } from "../../firebase";
 
 function Copyright() {
   return (
@@ -50,7 +52,7 @@ interface AuthDataTypes {
   password: string;
 }
 
-const UserAuth: React.FC = (props: any) => {
+const UserAuth: React.FC<RouteComponentProps> = (props) => {
   const classes = useStyles();
   const { register, handleSubmit, errors } = useForm<AuthDataTypes>();
 
