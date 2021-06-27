@@ -17,7 +17,7 @@ const Header: React.FC<PropTypes> = ({ history }) => {
   const handleSignOut = async () => {
     try {
       await auth.signOut();
-      history.push("user-auth");
+      history.push("/");
     } catch (err) {
       alert(err.message);
     }
