@@ -15,7 +15,7 @@ const App: React.FC<RouteComponentProps> = (props) => {
 
   useEffect(() => {
     auth.onAuthStateChanged((user) => {
-      !user && props.history.push("user-auth");
+      if (!user) props.history.push("user-auth");
     });
   }, []);
   // 空の配列を渡すのはレンダリングされた場合のみに発火させたいため。
